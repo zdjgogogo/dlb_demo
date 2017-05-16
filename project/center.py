@@ -1,6 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding=utf-8 -*-
 import ansible.runner
+import json
 
 def center(entry_name):
 
@@ -8,14 +9,14 @@ def center(entry_name):
     url = name[0].replace('_','.')
 
     run_cp = ansible.runner.Runner(
-        host_list = '/export/server/ansible/hosts/hosts',
+        host_list = '/export/servers/ansible/hosts/hosts',
         module_name= 'copy',
         module_args= 'src=/export/Data/ansible_date/%s/%s dest=/tmp/'%(name[0],entry_name)
     )
     run_cp.run()
 
     run_unzip = ansible.runner.Runner(
-        host_list = '/export/server/ansible/hosts/hosts',
+        host_list = '/export/servers/ansible/hosts/hosts',
         module_name= 'shell',
         module_args='unzip -oq /tmp/%s -d /tmp/%s.duolabao.com/'%(entry_name,url),
         pattern='%s'%(name[0]),
